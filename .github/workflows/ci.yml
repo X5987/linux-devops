@@ -1,0 +1,13 @@
+me: CI Test
+
+on: [push]
+
+jobs:
+    build:
+          runs-on: ubuntu-latest
+
+                steps:
+                        - uses: actions/checkout@v4
+
+                                - name: test script
+                                          run: echo "CI fonctionne"
