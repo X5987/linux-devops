@@ -1,4 +1,4 @@
-name: Node Angular Docker CI
+name: Node Angular Docker CI Yml
 
 on:
   push:
