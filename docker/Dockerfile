@@ -8,6 +8,6 @@ RUN npm run build
 
 # Stage 2 : serveur de production
 FROM nginx:alpine
-COPY --from=builder mon_premier_projet/dist /usr/share/nginx/html
+COPY --from=builder app/dist/mon_premier_projet /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
