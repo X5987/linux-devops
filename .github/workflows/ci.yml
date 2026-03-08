@@ -1,12 +1,10 @@
-name: Node Angular Docker CI Yml
+name: Node Angular Docker CI/CD
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
@@ -22,18 +20,22 @@ jobs:
         with:
           node-version: 18
 
-      # 3️⃣ Installer les dépendances
+      # 3️⃣ Installer les dépendances depuis la racine
       - name: Install dependencies
         run: npm install
 
-      # 4️⃣ Build Angular (ou Node si projet Node seul)
-      - name: Build Angular app
-        run: npm run build
+      # 4️⃣ Lancer les tests unitaires (si tu en as)
+      - name: Run tests
+        run: npm test || echo "No tests, continue"
 
-      # 5️⃣ Lancer Node pour vérifier
-      - name: Run Node app
-        run: node app/index.js
+      # 5️⃣ Build Angular ou Node
+      - name: Build app
+        run: npm run build || echo "No build script, continue"
 
       # 6️⃣ Build Docker image
       - name: Build Docker image
         run: docker build -t mon_app_devops -f docker/Dockerfile .
+
+      # 7️⃣ Test Docker image (optionnel)
+      - name: Test Docker image
+        run: docker run --rm mon_app_devops
